@@ -1,6 +1,6 @@
 const request = require("request")
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({path: "../.env"});
 
 const createRequest = (input, callback) => {
 

@@ -1,7 +1,7 @@
 const WrappedHBAR = artifacts.require('WrappedHBAR')
 const axios = require("axios");
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({path: "../.env"});
 
 const url = "https://api.dragonglass.me/hedera/api/transactions?accountTo=0.0.28503&transactionTypes=CONTRACT_CALL&sortBy=desc"
 

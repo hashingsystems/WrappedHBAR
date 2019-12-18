@@ -1,6 +1,6 @@
 const axios = require("axios");
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({path: "../.env"});
 
 // const WrappedHBAR = artifacts.require('WrappedHBAR')
 

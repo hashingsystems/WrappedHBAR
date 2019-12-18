@@ -8,26 +8,9 @@ const createRequest = (input, callback) => {
 	// url = url + endpoint
 	
 	const key = {
-		"X-API-KEY": "974d4207-51e0-3d73-8e20-4d5952078c47"
+		"X-API-KEY": ""
 	}
 	var amount;
-
-	// Create request params"",
-//   const lat = input.data.lat || "" // Default to latitude of Los Angeles
-//   const lon = input.data.lon || "" // Default to longitude of Los Angeles
-
-	// Build your query object with the given input params, for example:
-	// let queryObj = {
-	// 	lat: lat,
-	// 	lon: lon
-	// }
-
-	// Use this to clean up unused input parameters
-	// for (let key in queryObj) {
-	// 	if (queryObj[key] === "") {
-	// 		delete queryObj[key]
-	// 	}
-	// }
 
 	const options = {
     	url: url,

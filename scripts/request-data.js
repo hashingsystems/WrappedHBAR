@@ -4,7 +4,7 @@ const axios = require("axios");
 const url = "https://api.dragonglass.me/hedera/api/transactions?accountTo=0.0.28503&transactionTypes=CONTRACT_CALL&sortBy=desc"
 
 const key = {
-	"X-API-KEY": "974d4207-51e0-3d73-8e20-4d5952078c47"
+	"X-API-KEY": ""
 }
 
 const options = {

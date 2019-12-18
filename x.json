@@ -1,0 +1,38 @@
+{
+  "initiators": [
+    {
+      "type": "runlog",
+      "params": {
+        "address": "0x0ca1e5ee14f3f03d515db23cfd507641b9a393ba"
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "type": "dragonglass",
+      "confirmations": null,
+      "params": {
+      }
+    },
+    {
+      "type": "multiply",
+      "confirmations": null,
+      "params": {
+      }
+    },
+    {
+      "type": "ethuint256",
+      "confirmations": null,
+      "params": {
+      }
+    },
+    {
+      "type": "ethtx",
+      "confirmations": null,
+      "params": {
+      }
+    }
+  ],
+  "startAt": null,
+  "endAt": null
+}

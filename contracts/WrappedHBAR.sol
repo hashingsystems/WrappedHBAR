@@ -13,11 +13,15 @@ import "./Ownable.sol";
  */
 contract WrappedHBAR is ChainlinkClient, ERC20Detailed, ERC20, Ownable {
   uint256 public data;
+  uint256 public flag;
+  address public person;
 
   mapping (address => uint256) public balances;
   // mapping (bytes32 => bool) public claimed;
   
   event LogMintWHBAR(address account, uint amount);
+  event LogBurnWHBAR(address account, uint amount);
+
   /**
    * @notice Deploy the contract with a specified address for the LINK
    * and Oracle contract addresses
@@ -47,18 +51,27 @@ contract WrappedHBAR is ChainlinkClient, ERC20Detailed, ERC20, Ownable {
   }
 
 
-  function requestToken(address user) public returns (uint) {
+  function requestToken(
+    address _oracle,
+    bytes32 _jobId,
+    uint256 _payment,
+    string _url,
+    string _path,
+    int256 _times,
+    address user
+  ) public returns (uint) {
     // Fetch amount from oracle
-    createRequestTo(oracle, jobId, payment, url, path, 1);
+    person = user;
+    createRequestTo(_oracle, _jobId, _payment, _url, _path, _times);
 
+    flag = 2;
     // Increase balance of sender
-    require(data >= 0, "Deposit not found on hedera");
+    // require(data >= 0, "Deposit not found on hedera");
+    // _mint(user, data);
     balances[user] += data;
-    data = 0;
 
-    _mint(user, data);
-
-    emit LogMintWHBAR(user, balances[user]);
+    emit LogMintWHBAR(user, data);
+    // data = 0;
     return balances[user];
   }
 
@@ -66,11 +79,11 @@ contract WrappedHBAR is ChainlinkClient, ERC20Detailed, ERC20, Ownable {
   function withdrawToken(uint amount) public returns (uint) {
 
     require(balances[msg.sender] >= amount, "Insufficient funds to burn");
-    balances[user] -= amount;
+    balances[msg.sender] -= amount;
 
     _burn(msg.sender, amount);
 
-    emit LogBurnedWHBAR(msg.sender, amount);
+    emit LogBurnWHBAR(msg.sender, amount);
     return balances[msg.sender];
   }
   /**
@@ -110,9 +123,10 @@ contract WrappedHBAR is ChainlinkClient, ERC20Detailed, ERC20, Ownable {
    */
   function fulfill(bytes32 _requestId, uint256 _data)
     public
-    recordChainlinkFulfillment(_requestId)
+    recordChainlinkFulfillment(_requestId) returns (uint)
   {
     data = _data;
+    _mint(person, data);
   }
 
   /**

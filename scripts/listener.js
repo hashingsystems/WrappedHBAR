@@ -5,7 +5,7 @@ const axios = require("axios");
 const url = "https://api.dragonglass.me/hedera/api/transactions?accountTo=0.0.28503&transactionTypes=CONTRACT_CALL&sortBy=desc"
 
 const key = {
-	"X-API-KEY": ""
+	"X-API-KEY": "974d4207-51e0-3d73-8e20-4d5952078c47"
 }
 
 const options = {
@@ -13,11 +13,11 @@ const options = {
 };
 
 
-const oracleAddress = '0x0ca1E5ee14f3f03d515DB23cFD507641B9a393ba'
-const jobId = '53f62d753de641c5ab7947c7f9c335fc'
-const payment = '1000000000000000000'
-const path = 'data.data'
-const times = '2'
+// const oracleAddress = '0x0ca1E5ee14f3f03d515DB23cFD507641B9a393ba'
+// const jobId = '53f62d753de641c5ab7947c7f9c335fc'
+// const payment = '1000000000000000000'
+// const path = 'data.data'
+// const times = '2'
 
 const getData = async url => {
   try {

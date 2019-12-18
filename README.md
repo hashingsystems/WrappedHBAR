@@ -3,97 +3,41 @@
 
 ## Userflow
 
-## Development
+- Go to https://beta.hashingsystems.com/#deployed-contracts and deploy `contracts/hedera/HederaBank.sol` from the console.
 
-To use external adapters we'll have to run our chainlink node. https://docs.chain.link/docs/node-operators
+- Then go to **Deployed Contracts** section to find your deployed contract there with it's address. Call it's deposit method with the amount of hbar you want to deposit.
+![](https://i.imgur.com/0ggCPCd.png)
+Once you accept, that amount will be deposited into this contract and you can call `balance` to confirm your deposit.
 
-Add jobs and then view their runs by running `request-data.js`
+- Now call method `remit` with params `account`(the ethereum address you want to move funds to) and `amount`(how much you want to move).
+_Note: Call this method with some hbar oherwise the tx won't show up in dragonglass_
 
-#### 1. Have a chainlink node running
+- Now coming back to our porject repo https://github.com/nanspro/WrappedHBAR, go to the top directory and deploy our WrappedHBAR contract to ropsten.
 
-1. Start a local chainlink node. Instructions here https://docs.fiews.io/docs/run-a-chainlink-node-from-scratch
-2. Send ETH to your node on the network you plan on using, it will need some gas money to send a response
-
-#### 2. Run your adaptor locally
-
-1. Set your `ACCESS_TOKEN` as env variable 
-1. Have the external adaptor(s) running locally
-2. On your node operator dashboard go to `Bridges` --> `Add Bridge` and fill in the details. For the bridge url use `[YOUR_IP_ADDRESS]:port` where your adaptor is running. Be sure to use your ip address and not `localhost`
-
-#### 3. Add a job
-
-1. Once the bridge is added, create a new job on the dashboard a paste the contents of `job.json` into the json blob space.
-2. Copy the job id and paste it into `scripts/request-data.js`
-
-#### 4. Check your node with provided scripts
-
-1. Set env variables `MNEMONIC` and `RPC_URL` like so: `export RPC_URL="https://ropsten.rpc.fiews.io/v1/free"` and `export MNEMONIC='[YOUR MNEMONIC]`
-2. Deploy your contract using `npm run migrate:live` and fund your contract with LINK https://ropsten.chain.link (for ropsten)
-2. Run helper scripts (see below)
-
-## Testing
-
-For deploying to live networks, Truffle will use `truffle-hdwallet-provider` for your mnemonic and an RPC URL. Set your environment variables `$RPC_URL` and `$MNEMONIC` before running:
-
+First set env variables in .env,
+```
+MNEMONIC=<YOUR_PRIVATE_KEY>
+ETH_RPC_URL=https://ropsten.infura.io/v3/<INFURA_PROJECT_ID>
+ACCESS_TOKEN=<DRAGONGLASS_API_ACCESS_TOKEN>
+```
 ```bash
-npm run migrate:live
+$ truffle migrate --reset --network ropsten
 ```
 
-#### Helper Scripts
+***Note the contract address and fund it with $link tokens on ropsten. Here's the faucet, https://ropsten.chain.link/***
+<br/>
+**Temporary Setup**
+Now before we go ahead, we need to start our local chainlink node and run our dragonglass adpater too, instructions are given in [Chainlink](./Chainlink.md)
 
-There are 3 helper scripts provided with this box in the scripts directory:
+**Helper Scripts**
+- Calling remit emitted an event `LogDepositMade`, we have a listener script which listens to this event the topic for this event is `a8126f7572bb1fdeae5b5aa9ec126438b91f658a07873f009d041ae690f3a193`
+- In `scripts/listener.js` we listen for updates from the contract through dragonglass api, if we found a contract all with such topic then we fetch the param `account` (ethereum address) and trigger the oracle with that value.
 
-- `fund-contract.js`
-- `request-data.js`
-- `read-contract.js`
+_Note: The listener script is having some trouble continously listening for events cause infinite loop is not possible on truffle-scripts. So for now just run `npx truffle exec scripts/request-data.js --network ropsten ` to read the latest change from hedera contract._
 
-They can be used by calling them from `npx truffle exec`, for example:
+- After running `scripts/request-data.js`, you'll notice that it fetched the address and amount correctly from `HederaBank`'s remit method call. It then calls the `requestToken` method of contract `WrappedHBAR` with address of account it fetched from hedera transaction's log and some other params related to oracles and stuff.
+- If you go to your chainlink node dashboard, you can see that it recevived the request and it'll process that in few seconds. Once it is successful go and check your ethereum account in which you were supposed to get WHBAR.
+_Note: You can add your `WrappedHBAR` contract address in metamask too to see your funds there_
 
-```bash
-npx truffle exec scripts/fund-contract.js --network live
-```
-_Note: You can directly send test link to this address by fetching it from faucet_
-
-The CLI will output something similar to the following:
-
-```
-Using network 'live'.
-
-Funding contract: 0x972DB80842Fdaf6015d80954949dBE0A1700705E
-0xd81fcf7bfaf8660149041c823e843f0b2409137a1809a0319d26db9ceaeef650
-Truffle v5.0.25 (core: 5.0.25)
-Node v10.15.1
-```
-
-In the `request-data.js` script, example parameters are provided for you. You can change the oracle address, Job ID, and parameters based on the information available on [our documentation](https://docs.chain.link/docs/testnet-oracles).
-
-```bash
-npx truffle exec scripts/request-data.js --network live
-```
-
-This creates a request and will return the transaction ID, for example:
-
-```
-Using network 'live'.
-
-Creating request on contract: 0x972DB80842Fdaf6015d80954949dBE0A1700705E
-0x828f256109f22087b0804a4d1a5c25e8ce9e5ac4bbc777b5715f5f9e5b181a4b
-Truffle v5.0.25 (core: 5.0.25)
-Node v10.15.1
-```
-
-After creating a request on a live network, you will want to wait 3 blocks for the Chainlink node to respond. Then call the `read-contract.js` script to read the contract's state.
-
-```bash
-npx truffle exec scripts/read-contract.js --network live
-```
-
-Once the oracle has responded, you will receive a value similar to the one below:
-
-```
-Using network 'live'.
-
-21568
-Truffle v5.0.25 (core: 5.0.25)
-Node v10.15.1
-```
+- You can also transfer this WHBAR between accounts
+- If you call `withdrawToken` method of `WrappedHBAR` then that will burn your WHBAR and will emit an event for the same.

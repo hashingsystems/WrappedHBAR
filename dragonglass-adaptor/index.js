@@ -1,4 +1,6 @@
 const request = require("request")
+const dotenv = require('dotenv');
+dotenv.config();
 
 const createRequest = (input, callback) => {
 
@@ -8,7 +10,7 @@ const createRequest = (input, callback) => {
 	// url = url + endpoint
 	
 	const key = {
-		"X-API-KEY": ""
+		"X-API-KEY": process.env.ACCESS_TOKEN
 	}
 	var amount;
 

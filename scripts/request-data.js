@@ -1,10 +1,12 @@
 const WrappedHBAR = artifacts.require('WrappedHBAR')
 const axios = require("axios");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const url = "https://api.dragonglass.me/hedera/api/transactions?accountTo=0.0.28503&transactionTypes=CONTRACT_CALL&sortBy=desc"
 
 const key = {
-	"X-API-KEY": ""
+	"X-API-KEY": process.env.ACCESS_TOKEN
 }
 
 const options = {

@@ -160,7 +160,7 @@ contract ERC20 is IERC20 {
         // _balances[sender] = SafeMath.sub(_balances[sender], amount, "ERC20: transfer amount exceeds balance");
         _balances[sender] = SafeMath.sub(_balances[sender], amount);
         _balances[recipient] = SafeMath.add(_balances[recipient], amount);
-        // emit Transfer(sender, recipient, amount);
+        emit Transfer(sender, recipient, amount);
     }
 
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing

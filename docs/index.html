@@ -20,7 +20,7 @@
                                                     \_/__/               \/__/                                        
 Copyright (c) 2020 Hashing Systems, Inc
 Build decentralized applications on a network backed by ibm & google @ hedera.com
-   	-->
+    -->
     <title>WHBAR - Wrapping Station</title>
 
     <link rel="stylesheet" href="assets/css/vendor.bundle-ver=104.css">
@@ -78,13 +78,13 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                             </div>
                             <div class="card-text">
                                 <p>
-                                    Before we get started wrapping your hbar into the Ethereum network let's make sure you understand the outcome. We are locking HBAR on Hedera in a specially-made contract controlled by Ethereum and a group of block validators.
+                                    Before we get started wrapping your hbar into the Ethereum network let's make sure you understand the outcome. We are locking HBAR on Hedera in a specially-made contract controlled by Ethereum and a group of block validators. These validators mint an ERC20 token you can freely move in Ethereum.
                                 </p>
                                 <p>
-                                 In other words this is trustless. Nobody, not even the contract deployers or validators, can "edit" what someone does. Regardless of how much they want to.
+                                 This is a trustless system. Nobody, not even the contract deployers or validators, can "edit" what someone does. Regardless of how much they want to.
                                 </p>
                                 <p>
-                                The program uses your MetaMask and Composer default accounts to choose and mint, reducing potential errors. 
+                                The program uses your MetaMask and Composer default accounts to choose and mint, reducing potential user errors. Please follow the instructions. If you're unsure if its done, just follow the progress bar and wait until your balance is updated.
                                 </p>
                                 <p>
                                  You can go through the code and see how it works, its open source :D 
@@ -128,9 +128,9 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                             </div>
                             <div class="pay-buttons pt-0">
                                 <div class="pay-button">
-                                	<button data-toggle="modal" id="tx-id" class="btn btn-light-alt btn-between w-100">
-                                		Loading TX ID
-                                	</button>
+                                    <button data-toggle="modal" id="tx-id" class="btn btn-light-alt btn-between w-100">
+                                        Loading TX ID
+                                    </button>
                                 </div>
                             </div>
                             <div class="token-bonus-ui">
@@ -189,12 +189,12 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                             </div>
                             <div class="token-rate-wrap row">
                                 <div class="token-rate col-md-6 col-lg-12">
-                                	 <p>Tokens are locked in a smart contract-based vault on Hedera Hashgraph.<br class="d-none d-lg-block">We've created a network of <a href="https://en.wikipedia.org/wiki/Trusted_Computing">cloud-based hardware security modules</a> to verify messages from Ethereum.</p>
+                                     <p>Tokens are locked in a smart contract-based vault on Hedera Hashgraph.<br class="d-none d-lg-block">We've created a network of <a href="https://en.wikipedia.org/wiki/Trusted_Computing">cloud-based hardware security modules</a> to verify messages from Ethereum.</p>
                                 </div>
                             </div>
                             <div class="token-rate-wrap row">
                                 <div class="token-rate col-md-6 col-lg-12">
-                                	 	<br class="d-none d-lg-block">Validator nodes will verify events and earn a portion of the fees charged for cross-chain transfer. Interested in running a validator node? message us at <a href="https://hashingsystems.com">our website</a>.</p>
+                                        <br class="d-none d-lg-block">Validator nodes will verify events and earn a portion of the fees charged for cross-chain transfer. Interested in running a validator node? message us at <a href="https://hashingsystems.com">our website</a>.</p>
                                 </div>
                             </div>
                             <div class="card-head">
@@ -263,9 +263,9 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
     <script src="assets/js/script-ver=104.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 
-	<script src="https://cdn.hashingsystems.com/hash.js"></script>
+    <script src="https://cdn.hashingsystems.com/hash.js"></script>
     <script>
-	$( document ).ready(async function() {
+    $( document ).ready(async function() {
 
         let ethereum = window.ethereum;
         let web3 = window.web3;
@@ -312,7 +312,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             }
             console.log(txReceipt)
         }
-    	/* ~~~~~~~ Initiate Deposit ~~~~~~~ */
+        /* ~~~~~~~ Initiate Deposit ~~~~~~~ */
         $( "#initiate-deposit" ).click(function() {
             console.log("boop")
             console.log("initiateDeposit");
@@ -332,6 +332,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                     console.log(err);
                 }else{
                     console.log(res);
+                    isRunning(true);
                     verifyDeposit();
                 }
             });
@@ -339,7 +340,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
         
       //  setTimeout(function(){ initiateDeposit(); console.log("beep")}, 1000);
 
-    	function verifyDeposit(){
+        function verifyDeposit(){
             /* ~~~~~~ Get transaction list from kabuto ~~~~~~ */
             console.log("verifyDeposit");
             $( "#verify" ).toggleClass( "active" );
@@ -364,10 +365,10 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             })
             .catch((error) => {
             });
-    	}
+        }
     //    setTimeout(function(){ verifyDeposit(); console.log("beep"); }, 1000);
 
-    	function verifyTransaction(){
+        function verifyTransaction(){
              // ping Ethereum about your transaction hash so it can start chicken thighs.
              $( "#verify2" ).toggleClass( "active" );
             console.log("verifyTransaction");
@@ -381,7 +382,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                 console.log(res);
                 setTimeout(function(){ verifyCallback(); }, 60000);
             });
-    	}
+        }
  //       
 
         function verifyCallback(){
@@ -412,6 +413,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                         console.log("maybe we wrapped a token!");
                         $( "#confirming" ).toggleClass( "active" );
                         console.log(res);
+                        isRunning(false);
                         checkBalance();
                     });
                 }
@@ -450,6 +452,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                 console.log(withdrawAmount);
                 WrappedHbarContract.methods.withdraw(String(withdrawAmount),String(address)).send({from: web3.currentProvider.selectedAddress, value:10000000000000000}).on('receipt', function(res){
                     console.log("attempted to unwrap token!");
+                    isRunning(true);
                     console.log(res);
                     setTimeout(function(){ sendWithdrawReceipt(); }, 60000);
                 });
@@ -525,6 +528,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
                       console.log(data);
 
                      let output = await hash.triggerSmartContract(data);
+                     isRunning(false);
                     }else{
                     setTimeout(function(){ sendWithdrawReceipt(); }, 60000); 
                     console.log("No tx found in etherscan for signed withdrawal receipts! Retrying in 60 seconds.")
@@ -559,7 +563,11 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             checkBalance();
             checkCirculation();
         })
-	});
+        function isRunning(is){
+            $("#initiate-deposit").prop('disabled', is);
+            $("#initiate-withdrawal").prop('disabled', is);
+        }
+    });
     </script>
 </body>
 </html>

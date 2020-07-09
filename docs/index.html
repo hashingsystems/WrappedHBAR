@@ -279,7 +279,15 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
          // set the provider you want from Web3.providers
             web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/91da3a52af254c758fa6fe292fa7f9fd"));
         }
+        if(!web3.currentProvider || !window.hash){
+            errorWallets();
+        }
         web3.currentProvider.enable()
+        
+        function errorWallets(){
+            alert("You need both Composer and MetaMask installed!\nReload and try again.");
+            isRunning(true);
+        }
 
         web3.eth.defaultAccount = web3.eth.accounts[0];
 
@@ -329,6 +337,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
               }
             window.hash.triggerSmartContract(data, (err,res)=>{
                 if(err){
+                    errorWallets();
                     console.log(err);
                 }else{
                     console.log(res);

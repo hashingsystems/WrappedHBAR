@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Hashing Systems">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="1. Deposit HBAR. 2. Mint wHBAR. 3. Lend and earn interest on your HBAR.">
+    <!-- Fav Icon -->
+    <link rel="shortcut icon" href="images/favicon.png">
+    <!--
+ __  __                    __                              ____                     __                                
+/\ \/\ \                  /\ \      __                    /\  _`\                  /\ \__                             
+\ \ \_\ \     __      ____\ \ \___ /\_\    ___      __    \ \,\L\_\  __  __    ____\ \ ,_\    __    ___ ___     ____  
+ \ \  _  \  /'__`\   /',__\\ \  _ `\/\ \ /' _ `\  /'_ `\   \/_\__ \ /\ \/\ \  /',__\\ \ \/  /'__`\/' __` __`\  /',__\ 
+  \ \ \ \ \/\ \L\.\_/\__, `\\ \ \ \ \ \ \/\ \/\ \/\ \L\ \    /\ \L\ \ \ \_\ \/\__, `\\ \ \_/\  __//\ \/\ \/\ \/\__, `\
+   \ \_\ \_\ \__/.\_\/\____/ \ \_\ \_\ \_\ \_\ \_\ \____ \   \ `\____\/`____ \/\____/ \ \__\ \____\ \_\ \_\ \_\/\____/
+    \/_/\/_/\/__/\/_/\/___/   \/_/\/_/\/_/\/_/\/_/\/___L\ \   \/_____/`/___/> \/___/   \/__/\/____/\/_/\/_/\/_/\/___/ 
+                                                    /\____/              /\___/                                       
+                                                    \_/__/               \/__/                                        
+Copyright (c) 2020 Hashing Systems, Inc
+Build decentralized applications on a network backed by ibm & google @ hedera.com
+   	-->
+    <title>WHBAR - Wrapping Station</title>
+
+    <link rel="stylesheet" href="assets/css/vendor.bundle-ver=104.css">
+    <link rel="stylesheet" href="assets/css/style-ver=104.css" id="layoutstyle">
+    <style>
+        .bonus-extra.stuff {
+            width: 100%;
+        }
+        .bonus-extra.stuff .bonus-extra-item span.bonus-extra-amount {
+            left: 10%;
+        }
+    </style>
+</head>
+
+<body class="page-user">
+    <div class="topbar-wrap">
+        <div class="topbar is-sticky">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <ul class="topbar-nav d-lg-none">
+                        <li class="topbar-nav-item relative"><a class="toggle-nav" href="#">
+                                <div class="toggle-icon"><span class="toggle-line"></span><span class="toggle-line"></span><span class="toggle-line"></span><span class="toggle-line"></span></div>
+                            </a></li><!-- .topbar-nav-item -->
+                    </ul><!-- .topbar-nav --><a class="topbar-logo" href="#"><img src="images/logo-light2x.png" srcset="images/logo-light2x.png 2x" alt="logo"></a>
+                    <ul class="topbar-nav">
+                        <li class="topbar-nav-item relative"><span class="user-welcome d-none d-lg-inline-block">Welcome! Stefan Harary</span><a class="toggle-tigger user-thumb" href="#"><em class="ti ti-user"></em></a>
+                            <div class="toggle-class dropdown-content dropdown-content-right dropdown-arrow-right user-dropdown">
+                                <div class="user-status">
+                                    <h6 class="user-status-title">Token balance</h6>
+                                    <div class="user-status-balance">12,000,000 <small>TWZ</small></div>
+                                </div>
+                                <ul class="user-links">
+                                    <li><a href="#"><i class="ti ti-id-badge"></i>My Profile</a></li>
+                                    <li><a href="#"><i class="ti ti-infinite"></i>Referral</a></li>
+                                    <li><a href="#"><i class="ti ti-eye"></i>Activity</a></li>
+                                </ul>
+                                <ul class="user-links bg-light">
+                                    <li><a href="#"><i class="ti ti-power-off"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                        </li><!-- .topbar-nav-item -->
+                    </ul><!-- .topbar-nav -->
+                </div>
+            </div><!-- .container -->
+        </div><!-- .topbar -->
+    </div><!-- .topbar-wrap -->
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="main-content col-lg-8">
+                    <div class="content-area card">
+                        <div class="card-innr">
+                            <div class="card-head">
+                                <h4 class="card-title">Welcome to the HBAR Wrapping Station</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>
+                                    Before we get started wrapping your hbar into the Ethereum network let's make sure you understand the outcome. We are locking HBAR on Hedera in a specially-made contract controlled by Ethereum and a group of block validators.
+                                </p>
+                                <p>
+                                 In other words this is trustless. Nobody, not even the contract deployers or validators, can "edit" what someone does. Regardless of how much they want to.
+                                </p>
+                                <p>
+                                The program uses your MetaMask and Composer default accounts to choose and mint, reducing potential errors. 
+                                </p>
+                                <p>
+                                 You can go through the code and see how it works, its open source :D 
+                                </p>
+                                <p>
+                                 For business inquiries visit <a href="https://hashingsystems.com">hashingsystems.com</a>
+                                </p>
+                            </div>
+                        </div> <!-- .card-innr -->
+                        <div class="card-innr">
+                            <div class="card-head"><span class="card-sub-title text-primary font-mid">Step 1</span>
+                                <h4 class="card-title">Deposit HBAR to Hedera Account</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>Enter your amount, you would like to contribute and calculate the amount of token you will received. The calculator helps to convert required currency to tokens.</p>
+                            </div>
+                            <div class="token-contribute">
+                                <div class="token-calc">
+                                    <div class="token-pay-amount"><input id="token-amount" class="input-bordered input-with-hint" type="text" value="1">
+                                        <div class="token-pay-currency"><a class="link ucap link-light">HBAR</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="token-calc-note note note-plane"><em class="fas fa-times-circle text-danger"></em><span class="note-text text-light">5 HBAR minimum contribution required.</span></div>
+                            </div>
+                            <div class="pay-buttons pt-0">
+                                <div class="pay-button"><button id="initiate-deposit" class="btn btn-light-alt btn-between w-100">Make a Deposit<em class="ti ti-wallet"></em></button></div>
+                            </div>
+                            <div class="pay-notes">
+                                <div class="note note-plane note-light note-md font-italic"><em class="fas fa-info-circle"></em>
+                                    <p>Tokens will appear in your account after payment successfully made and approved by our team. <br class="d-none d-lg-block"> Please note that, TWZ tokens will distributed end of ICO Token Sales. </p>
+                                </div>
+                            </div>
+                        </div> <!-- .card-innr -->
+                        <div class="card-innr">
+                            <div class="card-head"><span class="card-sub-title text-primary font-mid">Step 2</span>
+                                <h4 class="card-title">Verify Payment on Ethereum Contract</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>Checking the status of your transaction</p>
+                            </div>
+                            <div class="pay-buttons pt-0">
+                                <div class="pay-button">
+                                	<button data-toggle="modal" id="tx-id" class="btn btn-light-alt btn-between w-100">
+                                		Loading TX ID
+                                	</button>
+                                </div>
+                            </div>
+                            <div class="token-bonus-ui">
+                                <div class="bonus-bar">
+                                    <div class="bonus-base">
+                                        <span class="bonus-base-amount">Initial Hedera TX</span></div>
+                                    <div class="bonus-extra">
+                                        <div class="bonus-extra-item" id="verify" data-percent="20"><span class="bonus-extra-amount">Verify</span></div>
+                                        <div class="bonus-extra-item" id="verify2"  data-percent="20"><span class="bonus-extra-amount">Verify (2)</span></div>
+                                        <div class="bonus-extra-item" id="minting"  data-percent="30"><span class="bonus-extra-amount">Minting</span></div>
+                                        <div class="bonus-extra-item"  id="confirming"  data-percent="30"><span class="bonus-extra-amount">Confirming</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pay-notes">
+                                <div class="note note-plane note-light note-md font-italic"><em class="fas fa-info-circle"></em>
+                                    <p>Tokens will appear in your account after payment successfully made and approved by our team. <br class="d-none d-lg-block"> Please note that, TWZ tokens will distributed end of ICO Token Sales. </p>
+                                </div>
+                            </div>
+                        </div> <!-- .card-innr -->
+                        <div class="card-innr">
+                            <div class="card-head"><span class="card-sub-title text-primary font-mid">Step 3</span>
+                                <h4 class="card-title">Checking your balance on Ethereum!</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>Enter your amount, you would like to contribute and calculate the amount of token you will received. The calculator helps to convert required currency to tokens.</p>
+                            </div>
+                            <div class="token-contribute">
+                                <div class="token-calc">
+                                    <div class="token-received">
+                                        <div class="token-received-amount">
+                                            <h5 class="token-amount" id="whbar-balance">-</h5>
+                                            <div class="token-symbol">WHBAR</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pay-buttons pt-0">
+                                <div class="pay-button"><button data-toggle="modal" id="reload-balance" class="btn btn-light-alt btn-between w-100">Reload balance<em class="ti ti-wallet"></em></button></div>
+                            </div>
+                        </div> <!-- .card-innr -->
+                    </div> <!-- .content-area -->
+                </div><!-- .col -->
+                <div class="aside sidebar-right col-lg-4">
+                    <div class="token-sales card">
+                        <div class="card-innr">
+                            <div class="token-bonus-current">
+                                <div class="fake-class"><span class="card-sub-title">wHBAR in circulation</span>
+                                    <div class="h3 mb-0" id="circulating-hbar">-</div>
+                                    <br />
+                                </div>
+                                <div class="token-bonus-date">Last updated<br><span id="last-updated">never</span></div>
+                            </div>
+                            <div class="card-head">
+                                <h5 class="card-title card-title-sm">How it works</h5>
+                            </div>
+                            <div class="token-rate-wrap row">
+                                <div class="token-rate col-md-6 col-lg-12">
+                                	 <p>Tokens are locked in a smart contract-based vault on Hedera Hashgraph.<br class="d-none d-lg-block">We've created a network of <a href="https://en.wikipedia.org/wiki/Trusted_Computing">cloud-based hardware security modules</a> to verify messages from Ethereum.</p>
+                                </div>
+                            </div>
+                            <div class="token-rate-wrap row">
+                                <div class="token-rate col-md-6 col-lg-12">
+                                	 	<br class="d-none d-lg-block">Validator nodes will verify events and earn a portion of the fees charged for cross-chain transfer. Interested in running a validator node? message us at <a href="https://hashingsystems.com">our website</a>.</p>
+                                </div>
+                            </div>
+                            <div class="card-head">
+                                <h5 class="card-title card-title-sm">unWrapping Station</h5>
+                            </div>
+                            <div class="token-rate-wrap row">
+                                <div class="token-rate col-md-6 col-lg-12">
+                                     <div class="token-contribute">
+                                    <div class="token-pay-amount"><input id="withdraw-amount" class="input-bordered input-with-hint" type="text" value="1">
+                                        <div class="token-pay-currency"><a class="link ucap link-light">HBAR</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="token-calc-note note note-plane"><em class="fas fa-times-circle text-danger"></em><span class="note-text text-light">5 HBAR minimum withdrawal required.</span></div>
+                                </div>
+                                <div class="pay-buttons pt-0">
+                                    <div class="pay-button"><button id="initiate-withdrawal" class="btn btn-light-alt btn-between w-100">Withdraw<em class="ti ti-wallet"></em></button></div>
+                                </div>
+                                <div class="bonus-bar">
+                                    <div class="bonus-extra stuff">
+                                        <div class="bonus-extra-item" id="with-withdraw" data-percent="40">
+                                            <span class="bonus-extra-amount">Withdraw</span>
+                                        </div>
+                                        <div class="bonus-extra-item"  id="with-confirm"  data-percent="60">
+                                            <span class="bonus-extra-amount">Confirming</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .col -->
+            </div><!-- .container -->
+        </div><!-- .container -->
+    </div><!-- .page-content -->
+    <div class="footer-bar">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-8">
+                    <ul class="footer-links">
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Condition</a></li>
+                    </ul>
+                </div><!-- .col -->
+                <div class="col-md-4 mt-2 mt-sm-0">
+                    <div class="d-flex justify-content-between justify-content-md-end align-items-center guttar-25px pdt-0-5x pdb-0-5x">
+                        <div class="copyright-text">&copy; 2020 Hashing Systems</div>
+                        <div class="lang-switch relative"><a href="#" class="lang-switch-btn toggle-tigger">En <em class="ti ti-angle-up"></em></a>
+                            <div class="toggle-class dropdown-content dropdown-content-up">
+                                <ul class="lang-list">
+                                    <li><a href="#">Sp</a></li>
+                                    <li><a href="#">Cn</a></li>
+                                    <li><a href="#">En</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .footer-bar -->
+    <!-- JavaScript (include all script here) -->
+    <script src="assets/js/jquery.bundle-ver=104.js"></script>
+    <script src="assets/js/script-ver=104.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+	<script src="https://cdn.hashingsystems.com/hash.js"></script>
+    <script>
+	$( document ).ready(async function() {
+
+        let ethereum = window.ethereum;
+        let web3 = window.web3;
+
+        if (typeof ethereum !== 'undefined') {
+         await ethereum.enable();
+         web3 = new Web3(ethereum);
+        } else if (typeof web3 !== 'undefined') {
+         web3 = new Web3(web3.currentProvider);
+        }else {
+         // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/91da3a52af254c758fa6fe292fa7f9fd"));
+        }
+        web3.currentProvider.enable()
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        let contract = "0.0.88548";
+
+        let eth_contract = "0xb79ceF35d6870E92D2C1804EAC53819206cd86fb"
+        // 8 decimal places, bc tinybar.
+
+        let amount = 300000001;
+
+        let beneficiary = web3.currentProvider.selectedAddress;
+
+        let kabutoTx;
+
+        var WrappedHbarContract = new web3.eth.Contract([ { "inputs": [], "payable": true, "stateMutability": "payable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "address", "name": "str", "type": "address" } ], "name": "LogAddress", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "string", "name": "str", "type": "string" } ], "name": "LogEvent", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "Transfer", "type": "event" }, { "constant": false, "inputs": [ { "internalType": "bytes32", "name": "myid", "type": "bytes32" } ], "name": "___callback", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "bytes32", "name": "myid", "type": "bytes32" }, { "internalType": "string", "name": "result", "type": "string" } ], "name": "__callback", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "bytes32", "name": "_myid", "type": "bytes32" }, { "internalType": "string", "name": "_result", "type": "string" }, { "internalType": "bytes", "name": "_proof", "type": "bytes" } ], "name": "__callback", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" } ], "name": "allowance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "approve", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "bytes32", "name": "queryId", "type": "bytes32" } ], "name": "attemptAgain", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "internalType": "address", "name": "account", "type": "address" } ], "name": "balanceOf", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "burn", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "burnFrom", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [ { "internalType": "uint8", "name": "", "type": "uint8" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "subtractedValue", "type": "uint256" } ], "name": "decreaseAllowance", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "addedValue", "type": "uint256" } ], "name": "increaseAllowance", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "transfer", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "transferFrom", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "string", "name": "txHash", "type": "string" } ], "name": "verifyDeposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [ { "internalType": "string", "name": "amount", "type": "string" }, { "internalType": "string", "name": "accountId", "type": "string" } ], "name": "withdraw", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" } ]);
+
+        WrappedHbarContract.options.address = eth_contract;
+        async function waitForTxToBeMined (txHash) {
+            console.log(txHash);
+            let txReceipt;
+            while (!txReceipt) {
+                try {
+                    txReceipt = await web3.eth.getTransactionReceipt(txHash);
+                    //var data = [];
+                    //data.append(eth.getTransactionReceipt(txReceipt).data);
+                    //console.log(data);
+                } catch (err) {
+                    console.log(err);    
+                }
+            }
+            console.log(txReceipt)
+        }
+    	/* ~~~~~~~ Initiate Deposit ~~~~~~~ */
+        $( "#initiate-deposit" ).click(function() {
+            console.log("boop")
+            console.log("initiateDeposit");
+                amount = document.getElementById('token-amount').value;
+                amount = amount*100000000;
+                console.log(amount);
+            let data = {
+                contractid: contract,
+                memo: beneficiary,
+                params: "[\""+beneficiary+"\"]",
+                paymentserver: "https://mps.hashingsystems.com",
+                abi: "[{\"constant\":false,\"name\":\"deposit\",\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\",\"inputs\":[{\"name\":\"account\",\"type\":\"string\"}]}]",
+                amount: amount
+              }
+            window.hash.triggerSmartContract(data, (err,res)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(res);
+                    verifyDeposit();
+                }
+            });
+        });
+        
+      //  setTimeout(function(){ initiateDeposit(); console.log("beep")}, 1000);
+
+    	function verifyDeposit(){
+            /* ~~~~~~ Get transaction list from kabuto ~~~~~~ */
+            console.log("verifyDeposit");
+            $( "#verify" ).toggleClass( "active" );
+            fetch('http://api.testnet.kabuto.sh/v1/transaction?q={"type":"CONTRACT_CALL","entity":"'+contract+'","status":"SUCCESS"}', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+                for(let t in data.transactions){
+                    if(data.transactions[t].memo == beneficiary){
+                        kabutoTx = data.transactions[t];
+                        console.log(kabutoTx);
+                        $("#tx-id").text( kabutoTx.hash );
+                        break;
+                    }
+                }
+                // this is the verification provided by Hedera.
+                setTimeout(function(){ verifyTransaction(); }, 10000);
+            })
+            .catch((error) => {
+            });
+    	}
+    //    setTimeout(function(){ verifyDeposit(); console.log("beep"); }, 1000);
+
+    	function verifyTransaction(){
+             // ping Ethereum about your transaction hash so it can start chicken thighs.
+             $( "#verify2" ).toggleClass( "active" );
+            console.log("verifyTransaction");
+            console.log(kabutoTx);
+            let txHash = kabutoTx.hash;
+
+            console.log("calling contract");
+            console.log(txHash);
+
+            WrappedHbarContract.methods.verifyDeposit(txHash).send({from: web3.currentProvider.selectedAddress, value:10000000000000000}).on('receipt', function(res){
+                console.log(res);
+                setTimeout(function(){ verifyCallback(); }, 60000);
+            });
+    	}
+ //       
+
+        function verifyCallback(){
+            console.log("verifyCallback");
+            $( "#minting" ).toggleClass( "active" );
+//  http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=0xddc5347e24f5949b3823f45c607eee24858af2a2&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6
+            fetch('http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data.result)
+                let out = false;
+                for(let m in data.result){
+                    if(web3.utils.hexToAscii(data.result[m].input).includes(beneficiary)){
+                        console.log(data.result[m].input)
+                        console.log(web3.utils.hexToAscii(data.result[m].input));
+                        out = data.result[m].input;
+                    }
+                }
+                if(out){
+                    console.log("hello!");
+                    // here we need to call the second verify with the bytes32 of the job id.
+                    let jobId = out.substring(10,74);
+                    WrappedHbarContract.methods.___callback("0x"+jobId).send({from: web3.currentProvider.selectedAddress}).on('receipt', function(res){
+                        console.log("maybe we wrapped a token!");
+                        $( "#confirming" ).toggleClass( "active" );
+                        console.log(res);
+                        checkBalance();
+                    });
+                }
+            })
+            .catch((error) => {
+            });
+        }
+        function done(){
+            $( "#verify" ).toggleClass( "active" );
+            $( "#verify2" ).toggleClass( "active" );
+            $( "#minting" ).toggleClass( "active" );
+            $( "#confirming" ).toggleClass( "active" );
+        }
+//setTimeout(function(){ verifyCallback(); }, 3000);
+        let withdrawAmount = "200000000";
+        let address;
+        let a_id;
+
+        $("#initiate-withdrawal").click(function(){
+            withdrawAmount = Number(document.getElementById('withdraw-amount').value)*100000000;
+            console.log("attempting to withdraw: " + withdrawAmount);
+            getWithdrawReceipt();
+        });
+
+        function getWithdrawReceipt(){
+            console.log("getWithdrawReceipt");
+
+           window.hash.triggerCheckBalance()
+            .then(res => {
+                console.log(res);
+                // we have the account id from the user.
+                address = window.hash.accountIdToEthAddress(res.currentAccount);
+                    console.log(`Connected Hedera Account: ${res.currentAccount}`);
+                a_id = res.currentAccount;
+                console.log(address);
+                console.log(withdrawAmount);
+                WrappedHbarContract.methods.withdraw(String(withdrawAmount),String(address)).send({from: web3.currentProvider.selectedAddress, value:10000000000000000}).on('receipt', function(res){
+                    console.log("attempted to unwrap token!");
+                    console.log(res);
+                    setTimeout(function(){ sendWithdrawReceipt(); }, 60000);
+                });
+                
+            }).catch(err => console.log("GetBalance::Error::", err))
+        }
+ //       setTimeout(function(){ getWithdrawReceipt(); }, 5000);
+        async function sendWithdrawReceipt(){
+            
+            console.log("sendWithdrawReceipt");
+
+            let count = String(withdrawAmount+","+address).length;
+
+            let messageHash = web3.utils.sha3("\x19Ethereum Signed Message:\n"+count+withdrawAmount+","+address);
+            console.log(messageHash);
+
+            // now we just need to look through the etherscan api to find the messageHash inbetween those input transactions...
+            fetch('http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            }).then(response => response.json())
+            .then(async data => {
+                //console.log(data.result)
+                let out = false;
+                for(let m in data.result){
+                    //console.log(web3.utils.hexToAscii(data.result[m].input))
+                    if(web3.utils.hexToAscii(data.result[m].input).includes(messageHash)){
+                        console.log(data.result[m].input)
+                        console.log(web3.utils.hexToAscii(data.result[m].input));
+                        out = data.result[m].input;
+                    }
+                }
+                if(out){
+                    console.log("Found the withdrawal callback!");
+                    // now we can make the hedera transaction to "withdraw the hbar"
+                    console.log(JSON.stringify(out));
+                    let re = web3.utils.hexToAscii(out);
+
+                    let receipt = re.split("0x");
+
+                    let d_amount = withdrawAmount;
+                    let d_account = String(address);
+                    let d_p = String(a_id);
+                    let d_n = String(count);
+                    let d_documentHash = String(messageHash);
+
+                    let d_sigV = "0x" +String(receipt[2]).slice(0, -1);
+                    let d_sigR = "0x" +String(receipt[3]).slice(0, -1);
+                    let d_sigS = "0x" +receipt[4].replace("\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000", "");
+
+                    var params = [];
+
+                        params.push(d_amount);
+                        params.push(d_account);
+                        params.push(d_p);
+                        params.push(d_n);
+                        params.push(d_documentHash);
+                        params.push(d_sigV);
+                        params.push(d_sigR);
+                        params.push(d_sigS);
+
+                    console.log([params.slice(1, -1)]);
+                    const data  = {
+                          "memo": "Withdrawing",
+                          "contractid": contract,
+                          "abi":`[{"constant":false,"inputs":[{"name":"amount","type":"uint256"},{"name":"account","type":"string"},{"name":"p","type":"address"},{"name":"n","type":"string"},{"name":"documentHash","type":"bytes32"},{"name":"sigV","type":"uint8"},{"name":"sigR","type":"bytes32"},{"name":"sigS","type":"bytes32"}],"name":"withdraw","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]`,
+                          "params": JSON.stringify(params),
+                          "amount": 0
+                      };
+
+                      console.log(data);
+
+                     let output = await hash.triggerSmartContract(data);
+                    }else{
+                    setTimeout(function(){ sendWithdrawReceipt(); }, 60000); 
+                    console.log("No tx found in etherscan for signed withdrawal receipts! Retrying in 60 seconds.")
+                }
+            })
+            .catch((error) => {
+            });
+        }
+        function checkBalance(){
+        WrappedHbarContract.methods.balanceOf(web3.currentProvider.selectedAddress).call(
+            {from: web3.currentProvider.selectedAddress}
+            ).then(function(res){
+                console.log(res);
+                let tinybarToHbar = Number(res)/100000000;
+                $("#whbar-balance").text(tinybarToHbar);
+            });
+        }
+
+        function checkCirculation(){
+            WrappedHbarContract.methods.totalSupply().call(
+            {from: web3.currentProvider.selectedAddress}
+            ).then(function(res){
+                console.log(res);
+                let tinybarToHbar = Number(res)/100000000;
+                $("#circulating-hbar").text(tinybarToHbar);
+                $("#last-updated").text("a minute ago");
+            });
+        }
+        //setInterval(function(){ checkCirculation(); }, 60000);
+        checkCirculation();
+        $("#reload-balance").click(function(){
+            checkBalance();
+            checkCirculation();
+        })
+	});
+    </script>
+</body>
+</html>

@@ -352,7 +352,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             /* ~~~~~~ Get transaction list from kabuto ~~~~~~ */
             console.log("verifyDeposit");
             $( "#verify" ).toggleClass( "active" );
-            fetch('http://api.testnet.kabuto.sh/v1/transaction?q={"type":"CONTRACT_CALL","entity":"'+contract+'","status":"SUCCESS"}', {
+            fetch('https://api.testnet.kabuto.sh/v1/transaction?q={"type":"CONTRACT_CALL","entity":"'+contract+'","status":"SUCCESS"}', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

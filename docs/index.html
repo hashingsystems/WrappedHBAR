@@ -397,7 +397,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             console.log("verifyCallback");
             $( "#minting" ).toggleClass( "active" );
 //  http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=0xddc5347e24f5949b3823f45c607eee24858af2a2&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6
-            fetch('http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
+            fetch('https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -478,7 +478,7 @@ Build decentralized applications on a network backed by ibm & google @ hedera.co
             console.log(messageHash);
 
             // now we just need to look through the etherscan api to find the messageHash inbetween those input transactions...
-            fetch('http://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
+            fetch('https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address='+eth_contract+'&startblock=0&endblock=99999999&sort=asc&apikey=SAAZUKW4S2EB54Z7A7ZF1BV9EAHG2AS5I6', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

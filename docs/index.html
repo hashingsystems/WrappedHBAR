@@ -539,7 +539,7 @@
     function doStuff(){
       // verify its a valid input!
       var amount = document.getElementById("valueToTransfer").value;
-      if(document.querySelector('.operation').innerText == "WRAP" &&amount<fees.unWrappingMinimum || document.querySelector('.operation').innerText == "UNWRAP" && amount<fees.WrappingMinimum ){
+      if(document.querySelector('.operation').innerText == "UNWRAP" && amount<fees.unWrappingMinimum || document.querySelector('.operation').innerText == "WRAP" && amount<fees.WrappingMinimum ){
         toastr['error']("Amount should exceed minimum!");
         return;
       }
